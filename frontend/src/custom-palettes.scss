@@ -1,0 +1,4 @@
+@import 'app/home/home.component.scss-theme.scss';
+@mixin custom-components-theme($theme) {
+    @include home-component-theme($theme);
+}

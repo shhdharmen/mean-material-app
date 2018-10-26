@@ -1,0 +1,36 @@
+@import "styles-variables";
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+@import "styles-reset.scss";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+// import our custom theme
+@import 'theme.scss';
+@import 'custom-palettes.scss';
+
+// specify theme class eg: <body class="my-theme"> ... </body>
+.my-theme {
+    // use our theme with angular-material-theme mixin
+    @include angular-material-theme($my-theme);
+
+    @include custom-components-theme($my-theme);
+}
+
+@import 'colors.scss';
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

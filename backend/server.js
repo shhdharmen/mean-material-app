@@ -5,7 +5,7 @@ const jsonServer = require('json-server')
 const jwt = require('jsonwebtoken')
 
 const server = jsonServer.create()
-const router = jsonServer.router('./database.json')
+const router = jsonServer.router('./database/database.json')
 
 server.use(jsonServer.defaults());
 server.use(bodyParser.urlencoded({extended: true}))
@@ -16,7 +16,7 @@ server.use(bodyParser.json())
 const createToken = (payload) => jwt.sign(payload, 'SECRET_KEY',{ expiresIn: '1h' });
 const verifyToken = (token) => jwt.verify(token,'SECRET_KEY');
 
-const userdb = JSON.parse(fs.readFileSync('./database.json', 'UTF-8')).users || [];
+const userdb = JSON.parse(fs.readFileSync('./database/users.json', 'UTF-8')).users || [];
 
 const isAuthenticated = ({email, password}) => {
   return userdb.findIndex(user => user.email === email && user.password === password) !== -1

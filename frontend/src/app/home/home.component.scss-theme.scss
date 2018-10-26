@@ -1,0 +1,27 @@
+@import '~@angular/material/theming';
+@mixin home-component-theme($theme) {
+    $accent: map-get($theme, accent);
+    kps-home {
+        .sidenav-container {
+            height: 100%;
+        }
+        .sidenav {
+            width: 200px;
+        }
+        .sidenav .mat-toolbar {
+            background: inherit;
+        }
+        .mat-toolbar.mat-primary {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        a[mat-list-item].active {
+            background-color: mat-color($accent);
+            color: #fff;
+            &:hover, &:focus{
+                background-color: mat-color($accent, darker);
+            }
+        }
+    }
+}
