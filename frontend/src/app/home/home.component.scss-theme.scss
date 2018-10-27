@@ -4,12 +4,17 @@
     kps-home {
         .sidenav-container {
             height: 100%;
-        }
-        .sidenav {
-            width: 200px;
-        }
-        .sidenav .mat-toolbar {
-            background: inherit;
+            .sidenav {
+                width: 200px;
+                background-color: mat-color($accent);
+                border-right: none;
+                .mat-toolbar{
+                    background-color: mat-color($accent);
+                }
+                .mat-nav-list{
+                    padding-top: 0;
+                }
+            }
         }
         .mat-toolbar.mat-primary {
             position: sticky;
@@ -17,10 +22,10 @@
             z-index: 1;
         }
         a[mat-list-item].active {
-            background-color: mat-color($accent);
+            background-color: mat-color($accent, lighter);
             color: #fff;
             &:hover, &:focus{
-                background-color: mat-color($accent, darker);
+                background-color: mat-color($accent, lighter);
             }
         }
     }
