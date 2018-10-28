@@ -9,8 +9,8 @@
           <div class="row">
             <div class="col">
               <mat-form-field class="full-width">
-                <input matInput placeholder="User ID / Email" formControlName="userId">
-                <mat-error *ngIf="loginForm.controls['userId'].hasError('required')">
+                <input matInput placeholder="User ID / Email" formControlName="username">
+                <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
                   User ID / Email is <strong>required</strong>
                 </mat-error>
               </mat-form-field>

@@ -1,4 +1,5 @@
+// 27017 is the default port number.
 module.exports = {
-    database: 'database.json',
-    users: 'users.json'
-};
+    tasks: 'mongodb://localhost:27017/tasks',
+    users: 'mongodb://localhost:27017/users'
+}
