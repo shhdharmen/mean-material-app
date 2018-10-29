@@ -12,8 +12,8 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 // import our custom theme
-@import 'theme.scss';
-@import 'custom-palettes.scss';
+@import 'styles-theme.scss';
+@import 'styles-custom-palettes.scss';
 
 // specify theme class eg: <body class="my-theme"> ... </body>
 .my-theme {
@@ -23,7 +23,6 @@
     @include custom-components-theme($my-theme);
 }
 
-@import 'colors.scss';
 /* You can add global styles to this file, and also import other style files */
 
 html,

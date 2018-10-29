@@ -21,7 +21,7 @@ async function authenticate({ username, password }) {
             const { password, ...userWithoutPassword } = user;
             return {
                 idToken: token,
-                expiresIn: '1h',
+                expiresIn: 10,
                 user: userWithoutPassword
             };
         }

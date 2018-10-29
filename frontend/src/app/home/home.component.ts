@@ -3,8 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
-import { MatToolbar } from '@angular/material';
-import { DOCUMENT } from '@angular/common';
+import { AuthService } from '../_services';
+import { User } from '../_models';
 
 @Component({
   selector: 'kps-home',
@@ -12,6 +12,7 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  currentUser: User = JSON.parse(localStorage.getItem('currentUser'));
   routes: { path: string, label: string }[];
   @ViewChild('drawer') drawer: MatSidenav;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -37,8 +38,12 @@ export class HomeComponent implements OnInit {
 
   setMainRoutes() {
     this.routes = [
-      { path: '/login', label: 'Login' },
-      { path: '/dashboard', label: 'Dashboard' }
+      { path: '/home/dashboard', label: 'Dashboard' }
     ];
+  }
+
+  logout() {
+    this.authService.logout();
+    location.reload(true);
   }
 }

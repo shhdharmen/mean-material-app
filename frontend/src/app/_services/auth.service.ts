@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import * as config from '../_config/config.json';
 import * as moment from 'moment';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
 
   private setSession(authResult: { idToken: string; expiresIn: number; user: { id: number; username: string; }; }) {
     localStorage.setItem('currentUser', JSON.stringify(authResult.user));
-    const expiresAt = moment().add(authResult.expiresIn, 'hour');
+    const expiresAt = moment().add(authResult.expiresIn, 'second');
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt));
     return authResult.user;
@@ -34,7 +35,7 @@ export class AuthService {
     localStorage.removeItem('expires_at');
   }
 
-  public isLoggedIn() {
+  isLoggedIn() {
     return moment().isBefore(this.getExpiration());
   }
   getExpiration() {

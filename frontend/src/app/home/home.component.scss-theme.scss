@@ -8,10 +8,10 @@
                 width: 200px;
                 background-color: mat-color($accent);
                 border-right: none;
-                .mat-toolbar{
+                .mat-toolbar {
                     background-color: mat-color($accent);
                 }
-                .mat-nav-list{
+                .mat-nav-list {
                     padding-top: 0;
                 }
             }
@@ -24,9 +24,13 @@
         a[mat-list-item].active {
             background-color: mat-color($accent, lighter);
             color: #fff;
-            &:hover, &:focus{
+            &:hover,
+            &:focus {
                 background-color: mat-color($accent, lighter);
             }
+        }
+        .mat-stroked-button.stroke-white:not([disabled]) {
+            border-color: #fff;
         }
     }
 }
