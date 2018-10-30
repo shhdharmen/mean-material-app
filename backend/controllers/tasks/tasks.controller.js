@@ -1,16 +1,17 @@
 //Require the express package and use express.Router()
 const express = require('express');
 const router = express.Router();
-const task = require('../models/Task');
+const task = require('../../models/Task');
 
 //GET HTTP method to /bucketlist
 router.get('/', (req, res) => {
-    task.getAllLists((err, lists) => {
+    console.log("backend/controllers/tasks/tasks.controller.js | router.get('/')");
+    task.getAllTasks((err, tasks) => {
         if (err) {
-            res.json({ success: false, message: `Failed to load all tasks. Error: ${err}` });
+            res.status(501).json({ success: false, message: `Failed to load all tasks. Error: ${err}` });
         }
         else {
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.status(200).write(JSON.stringify({ success: true, tasks: tasks }, null, 2));
             res.end();
 
         }
@@ -21,12 +22,12 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     //access the parameter which is the id of the item to be deleted
     let id = req.params.id;
-    task.getListById(id, (err, lists) => {
+    task.getTaskById(id, (err, tasks) => {
         if (err) {
-            res.json({ success: false, message: `Failed to load single task. Error: ${err}` });
+            res.status(501).json({ success: false, message: `Failed to load single task. Error: ${err}` });
         }
         else {
-            res.write(JSON.stringify({ success: true, lists: lists }, null, 2));
+            res.status(200).write(JSON.stringify({ success: true, tasks: tasks }, null, 2));
             res.end();
 
         }
@@ -38,15 +39,16 @@ router.post('/', (req, res, next) => {
     let newTask = new task({
         title: req.body.title,
         description: req.body.description,
-        category: req.body.category
+        category: req.body.category,
+        module: req.body.module
     });
-    task.addList(newTask, (err, list) => {
+    task.addTask(newTask, (err, list) => {
         if (err) {
-            res.json({ success: false, message: `Failed to create a new task. Error: ${err}` });
+            res.status(501).json({ success: false, message: `Failed to create a new task. Error: ${err}` });
 
         }
         else
-            res.json({ success: true, message: "Added successfully." });
+            res.status(200).json({ success: true, message: "Added successfully." });
 
     });
 });
@@ -58,13 +60,13 @@ router.delete('/:id', (req, res, next) => {
     //Call the model method deleteListById
     task.deleteListById(id, (err, list) => {
         if (err) {
-            res.json({ success: false, message: `Failed to delete the list. Error: ${err}` });
+            res.status(501).json({ success: false, message: `Failed to delete the list. Error: ${err}` });
         }
         else if (list) {
-            res.json({ success: true, message: "Deleted successfully" });
+            res.status(200).json({ success: true, message: "Deleted successfully" });
         }
         else
-            res.json({ success: false });
+            res.status(501).json({ success: false });
     });
 });
 

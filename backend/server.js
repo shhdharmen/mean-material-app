@@ -4,13 +4,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/database');
-// const taskCtrl = require('./controllers/tasks');
+const taskCtrl = require('./controllers/tasks/tasks.controller');
 const authCtrl = require('./controllers/auth/auth.controller');
 const errorHandler = require('./_helpers/error-handler');
 const jwt = require('./_helpers/jwt');
 
-//Connect mongoose to our database
-// mongoose.connect(config.database);
+try {
+  //Connect mongoose to our database
+  mongoose.connect(config.admin).then(data => {
+    mongoose.connect(config.tasks);
+  }).catch(err => {
+    console.error("mongoose.connect catch error", err);
+  });
+} catch (err) {
+  console.error("mongoose.connect try error", err);
+}
 
 //Initialize our app variable
 const app = express();
@@ -30,7 +38,7 @@ app.get('/', (req, res) => {
 })
 
 //Routing all HTTP requests to /bucketlist to tasks controller
-// app.use('/tasks', taskCtrl);
+app.use('/task', taskCtrl);
 
 //Routing all HTTP requests to /auth to auth controller
 app.use('/auth', authCtrl);

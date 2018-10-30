@@ -10,7 +10,7 @@ import { CoreModule } from '@app/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
-import { httpInterceptorProviders } from '@app/core/helpers';
+import { httpInterceptorProviders } from '@app/core/interceptors';
 import { AccountModule } from './account/account.module';
 
 @NgModule({

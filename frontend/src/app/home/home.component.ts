@@ -40,7 +40,8 @@ export class HomeComponent implements OnInit {
 
   setMainRoutes() {
     this.routes = [
-      { path: '/home/dashboard', label: 'Dashboard' }
+      { path: '/home/dashboard', label: 'Dashboard' },
+      { path: '/home/task', label: 'Tasks' }
     ];
   }
 

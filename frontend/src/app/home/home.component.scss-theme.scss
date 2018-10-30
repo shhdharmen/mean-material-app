@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
 @mixin home-component-theme($theme) {
+    $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
     kps-home {
         .sidenav-container {
@@ -16,10 +17,12 @@
                 }
             }
         }
-        .mat-toolbar.mat-primary {
+        .mat-toolbar {
             position: sticky;
             top: 0;
             z-index: 1;
+            background-color: mat-color($primary, darker);
+            color: #fff;
         }
         a[mat-list-item].active {
             background-color: mat-color($accent, lighter);
