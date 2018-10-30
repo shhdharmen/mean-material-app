@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home.component';
-import { ChildAuthGuard } from '../_guards/child-auth.guard';
+import { ChildAuthGuard } from '@app/core';
 
 const routes: Routes = [
   {

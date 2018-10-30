@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CoreModule } from '../core.module';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: CoreModule
 })
-export class ChildAuthGuard implements CanActivateChild {
+export class AuthGuard implements CanActivate {
   constructor(private router: Router) { }
-  canActivateChild(
+  canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('currentUser')) {
@@ -16,7 +17,7 @@ export class ChildAuthGuard implements CanActivateChild {
     }
 
     // not logged in so redirect to login page with the return url
-    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
     return false;
   }
 }

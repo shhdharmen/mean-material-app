@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import * as config from '../_config/config.json';
+import { ApiUrlService } from '../api-url/api-url.service';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
+import { CoreModule } from '../../core.module';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: CoreModule })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlService) { }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${config.apiUrl}/auth/login/`, { username, password })
+    return this.http.post<any>(`${this.apiUrlService.API_URL}/auth/login/`, { username, password })
       .pipe(map((authResult: { idToken: string, expiresIn: number, user: { id: number, username: string } }) => {
         // login successful if there's a jwt token in the response
         if (authResult && authResult.idToken) {

@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4205 -o",
@@ -50,5 +50,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.1.1"
-  }
+  },
+  "description": "An Angular7 Project, to demonstrate jwt and mongoose.",
+  "main": "index.js",
+  "author": "Dharmen Shah",
+  "license": "ISC"
 }

@@ -1,14 +1,14 @@
 {
   "name": "backend",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "An express based server which uses jwt and mongoose.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "nodemon",
     "generate": "node fakeData.js > database.json"
   },
   "keywords": [],
-  "author": "Ahmed Bouchefra",
+  "author": "Dharmen Shah",
   "license": "ISC",
   "dependencies": {
     "express-jwt": "^5.3.1",
@@ -16,5 +16,6 @@
     "json-server": "^0.14.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.7"
-  }
+  },
+  "devDependencies": {}
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../_services';
+import { AuthService } from '@app/core/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
 
 @Component({
   selector: 'kps-login',
@@ -10,6 +11,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   loginForm = this.fb.group({
     username: [null, Validators.required],
     password: [null, Validators.required]
@@ -29,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
 
     // get return url from route parameters or default to '/'
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
 
   // convenience getter for easy access to form fields
