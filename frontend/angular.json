@@ -27,8 +27,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles-app-loading.scss",
-              "src/styles.scss"
+              "src/styles/app-loading.scss",
+              "src/styles/styles.scss"
             ],
             "scripts": []
           },

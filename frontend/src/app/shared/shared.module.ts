@@ -14,9 +14,11 @@ import {
   MatRadioModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatIconRegistry
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @NgModule({
   imports: [
@@ -55,4 +57,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatSortModule]
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    matIconRegistry.addSvgIcon('plus', domSanitizer.bypassSecurityTrustResourceUrl('../assets/icons/plus.svg'));
+  }
+}
