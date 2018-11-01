@@ -15,7 +15,9 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatIconRegistry
+  MatIconRegistry,
+  MatTooltipModule,
+  MatExpansionModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -36,7 +38,9 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatRadioModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatTooltipModule,
+    MatExpansionModule
   ],
   declarations: [],
   exports: [CommonModule,
@@ -55,10 +59,13 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatRadioModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule]
+    MatSortModule,
+    MatTooltipModule,
+    MatExpansionModule
+  ]
 })
 export class SharedModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
-    matIconRegistry.addSvgIcon('plus', domSanitizer.bypassSecurityTrustResourceUrl('../assets/icons/plus.svg'));
+    matIconRegistry.addSvgIcon('menu-open', domSanitizer.bypassSecurityTrustResourceUrl('../assets/icons/menu-open.svg'));
   }
 }

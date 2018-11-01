@@ -4,32 +4,43 @@
     $accent: map-get($theme, accent);
     kps-home {
         .sidenav-container {
-            height: 100%;
             .sidenav {
-                width: 200px;
-                background-color: mat-color($accent);
-                border-right: none;
                 .mat-toolbar {
                     background-color: mat-color($accent);
                 }
-                .mat-nav-list {
-                    padding-top: 0;
+                >.mat-nav-list {
+                    a[mat-list-item] {
+                        padding-left: 24px;
+                        padding-right: 24px;
+                    }
+                }
+                .sidenav-accordion {
+                    .mat-expansion-panel {
+                        .mat-expansion-panel-header {
+                            &.mat-expanded {
+                                background-color: mat-color(mat-palette($mat-grey), 100);
+                            }
+                        }
+                        .mat-expansion-panel-content {
+                            .mat-expansion-panel-body {
+                                background-color: mat-color(mat-palette($mat-grey), 100);
+                                padding-right: 0;
+                                padding-bottom: 0;
+                            }
+                        }
+                    }
                 }
             }
         }
         .mat-toolbar {
-            position: sticky;
-            top: 0;
-            z-index: 1;
             background-color: mat-color($primary, darker);
             color: #fff;
         }
         a[mat-list-item].active {
-            background-color: mat-color($accent, lighter);
-            color: #fff;
+            background-color: mat-color(mat-palette($mat-grey), 200);
             &:hover,
             &:focus {
-                background-color: mat-color($accent, lighter);
+                background-color: mat-color(mat-palette($mat-grey), 200);
             }
         }
         .mat-stroked-button.stroke-white:not([disabled]) {

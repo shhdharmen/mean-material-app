@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
+import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { HomeService } from '@app/core/services/components/home/home.service';
 
 @Component({
   selector: 'kps-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   routerAnimationClass = ROUTE_ANIMATIONS_ELEMENTS;
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
@@ -31,5 +33,9 @@ export class DashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private activatedRoute: ActivatedRoute, private homeService: HomeService) { }
+
+  ngOnInit() {
+    // this.homeService.updateChild(this.activatedRoute.snapshot.url.join(''));
+  }
 }

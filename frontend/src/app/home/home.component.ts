@@ -14,6 +14,7 @@ import { routeAnimations } from '@app/core';
   animations: [routeAnimations]
 })
 export class HomeComponent implements OnInit {
+  title = 'Angular 7 List App';
   currentUser: User = JSON.parse(localStorage.getItem('currentUser'));
   routes: { path: string, label: string }[];
   @ViewChild('drawer') drawer: MatSidenav;
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setMainRoutes();
+    this.handleRoutes();
   }
 
   closeDrawer() {
@@ -36,6 +37,10 @@ export class HomeComponent implements OnInit {
         sub.unsubscribe();
       }
     });
+  }
+
+  handleRoutes() {
+    this.setMainRoutes();
   }
 
   setMainRoutes() {
@@ -48,5 +53,10 @@ export class HomeComponent implements OnInit {
   logout() {
     this.authService.logout();
     location.reload(true);
+  }
+
+  returnFalse(ev: any) {
+    ev.preventDefault();
+    return false;
   }
 }
