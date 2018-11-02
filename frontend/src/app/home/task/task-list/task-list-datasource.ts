@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, of as observableOf, merge, Subscription } from 'rxjs';
 import { Task } from '@app/core/models';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,10 +13,13 @@ import { ActivatedRoute } from '@angular/router';
  */
 export class TaskListDataSource extends DataSource<Task> {
   data: Task[];
+  activatedRouteDataSubscriber: Subscription;
 
   constructor(private paginator: MatPaginator, private sort: MatSort, private activatedRoute: ActivatedRoute) {
     super();
-    this.activatedRoute.data.subscribe(data => this.data = data.tasks.tasks);
+    this.activatedRouteDataSubscriber = this.activatedRoute.data.subscribe(data => {
+      this.data = data.tasks.tasks;
+    });
   }
 
   /**
@@ -45,7 +48,9 @@ export class TaskListDataSource extends DataSource<Task> {
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect() { }
+  disconnect() {
+    this.activatedRouteDataSubscriber.unsubscribe();
+  }
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,

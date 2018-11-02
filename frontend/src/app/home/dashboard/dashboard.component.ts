@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
-import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
-import { HomeService } from '@app/core/services/components/home/home.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'kps-dashboard',
@@ -33,9 +32,9 @@ export class DashboardComponent implements OnInit {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private activatedRoute: ActivatedRoute, private homeService: HomeService) { }
+  constructor(private breakpointObserver: BreakpointObserver,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.homeService.updateChild(this.activatedRoute.snapshot.url.join(''));
   }
 }

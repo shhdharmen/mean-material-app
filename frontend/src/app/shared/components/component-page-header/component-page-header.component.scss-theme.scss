@@ -1,0 +1,36 @@
+@import '~@angular/material/theming';
+@import '../../../../styles/variables.scss';
+@mixin component-page-header-component-theme($theme) {
+    $primary: map-get($theme, primary);
+    .component-page-header {
+        display: flex;
+        align-items: center;
+        @media (max-width: $grid-breakpoints(md)) {
+            padding-left: 0;
+        }
+        background-color: mat-color($primary, darker);
+        color: #fff;
+        a.mat-button[disabled],
+        a.mat-button:disabled,
+        a.mat-icon-button[disabled],
+        a.mat-icon-button:disabled {
+            color: #fff;
+        }
+    }
+    h1 {
+        outline: none;
+        @media (max-width: $grid-breakpoints(md)) {
+            padding: 24px 8px;
+            font-size: 20px;
+        }
+    }
+    .docs-primary-header {
+        h1 {
+            font-size: 30px;
+            font-weight: 300;
+            margin: 0;
+            padding: 8px 16px;
+            font-size: 20px;
+        }
+    }
+}

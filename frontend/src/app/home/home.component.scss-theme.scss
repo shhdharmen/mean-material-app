@@ -17,13 +17,14 @@
                 .sidenav-accordion {
                     .mat-expansion-panel {
                         .mat-expansion-panel-header {
-                            &.mat-expanded {
-                                background-color: mat-color(mat-palette($mat-grey), 100);
+                            &.mat-expanded,
+                            &.active {
+                                background-color: mat-color(mat-palette($mat-grey), 50);
                             }
                         }
                         .mat-expansion-panel-content {
                             .mat-expansion-panel-body {
-                                background-color: mat-color(mat-palette($mat-grey), 100);
+                                background-color: mat-color(mat-palette($mat-grey), 50);
                                 padding-right: 0;
                                 padding-bottom: 0;
                             }

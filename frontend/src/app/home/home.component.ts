@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthService } from '@app/core/services';
+import { AuthService, HomeService } from '@app/core/services';
 import { User } from '@app/core/models';
 import { routeAnimations } from '@app/core';
 
@@ -22,8 +22,10 @@ export class HomeComponent implements OnInit {
     .pipe(
       map(result => result.matches)
     );
-
-  constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService) {
+  loadedChild$: Observable<string>;
+  constructor(private breakpointObserver: BreakpointObserver,
+    private authService: AuthService,
+    private homeService: HomeService) {
   }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit {
 
   handleRoutes() {
     this.setMainRoutes();
+    this.loadedChild$ = this.homeService.currentChild$;
   }
 
   setMainRoutes() {

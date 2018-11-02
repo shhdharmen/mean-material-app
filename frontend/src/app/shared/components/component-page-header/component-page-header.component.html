@@ -1,0 +1,10 @@
+<div class="docs-primary-header component-page-header">
+  <span *ngFor="let segment of segments;index as i">
+    <a mat-button [routerLink]="[segment.path]" [disabled]="i === segments.length-1">
+      {{segment.label}}
+    </a>
+    <a mat-icon-button disabled aria-label="Right Arrow" *ngIf="i !== segments.length-1">
+      <mat-icon>chevron_right</mat-icon>
+    </a>
+  </span>
+</div>

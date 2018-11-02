@@ -1,1 +1,1 @@
-export * from './task-list.resolver';
+export * from './components';

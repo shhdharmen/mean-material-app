@@ -22,6 +22,5 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource = new TaskListDataSource(this.paginator, this.sort, this.activatedRoute);
-    // this.homeService.updateChild(this.activatedRoute.snapshot.url.join(''));
   }
 }

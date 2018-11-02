@@ -21,6 +21,8 @@ import {
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ComponentPageHeaderComponent } from './components/component-page-header/component-page-header.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -40,9 +42,10 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatPaginatorModule,
     MatSortModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    RouterModule
   ],
-  declarations: [],
+  declarations: [ComponentPageHeaderComponent],
   exports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -61,7 +64,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     MatPaginatorModule,
     MatSortModule,
     MatTooltipModule,
-    MatExpansionModule
+    MatExpansionModule,
+    ComponentPageHeaderComponent
   ]
 })
 export class SharedModule {

@@ -1,4 +1,6 @@
 @import 'app/home/home.component.scss-theme.scss';
+@import 'app/shared/components/component-page-header/component-page-header.component.scss-theme.scss';
 @mixin custom-components-theme($theme) {
+    @include component-page-header-component-theme($theme);
     @include home-component-theme($theme);
 }

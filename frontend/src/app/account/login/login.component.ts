@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '@app/core/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'kps-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   loginForm = this.fb.group({
     username: [null, Validators.required],
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   loading: boolean;
   error = '';
+  loginSubscriber: Subscription;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.loginSubscriber = this.authService.login(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe(
         data => {
@@ -56,5 +58,9 @@ export class LoginComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
+  }
+
+  ngOnDestroy(): void {
+    this.loginSubscriber.unsubscribe();
   }
 }

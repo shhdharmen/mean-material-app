@@ -1,4 +1,3 @@
-export * from './animations/route.animations';
-export * from './animations/animations.service';
+export * from './animations';
 export * from './guards';
 export * from './core.module';
