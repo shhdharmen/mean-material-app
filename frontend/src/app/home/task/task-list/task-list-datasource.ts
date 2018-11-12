@@ -1,9 +1,10 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, Subscription } from 'rxjs';
+import { map, startWith, switchMap, catchError } from 'rxjs/operators';
+import { Observable, of as observableOf, merge, Subscription, BehaviorSubject } from 'rxjs';
 import { Task } from '@app/core/models';
 import { ActivatedRoute } from '@angular/router';
+import { TaskService } from '@app/core/services';
 
 
 /**
@@ -14,11 +15,18 @@ import { ActivatedRoute } from '@angular/router';
 export class TaskListDataSource extends DataSource<Task> {
   data: Task[];
   activatedRouteDataSubscriber: Subscription;
+  private isLoadingResults_ = new BehaviorSubject(true);
+  isLoadingResults$ = this.isLoadingResults_.asObservable();
 
-  constructor(private paginator: MatPaginator, private sort: MatSort, private activatedRoute: ActivatedRoute) {
+  constructor(private paginator: MatPaginator,
+    private sort: MatSort,
+    private activatedRoute: ActivatedRoute,
+    private taskService: TaskService) {
     super();
     this.activatedRouteDataSubscriber = this.activatedRoute.data.subscribe(data => {
       this.data = data.tasks.tasks;
+      console.log(this.data);
+      this.isLoadingResults_.next(false);
     });
   }
 
@@ -31,7 +39,7 @@ export class TaskListDataSource extends DataSource<Task> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
-      observableOf(this.data),
+      // observableOf(this.data),
       this.paginator.page,
       this.sort.sortChange
     ];
@@ -39,9 +47,25 @@ export class TaskListDataSource extends DataSource<Task> {
     // Set the paginator's length
     this.paginator.length = this.data.length;
 
-    return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-    }));
+    return merge(...dataMutations).pipe(
+      startWith({}),
+      switchMap(() => {
+        this.isLoadingResults_.next(true);
+        return this.taskService.getAll(
+          this.sort.active, this.sort.direction, this.paginator.pageIndex);
+      }),
+      map(data => {
+        // Flip flag to show that loading has finished.
+        this.isLoadingResults_.next(false);
+        this.paginator.length = this.data.length;
+        console.log(data);
+        return data.tasks;
+      }),
+      catchError(() => {
+        this.isLoadingResults_.next(false);
+        return observableOf([]);
+      })
+    );
   }
 
   /**
@@ -51,37 +75,4 @@ export class TaskListDataSource extends DataSource<Task> {
   disconnect() {
     this.activatedRouteDataSubscriber.unsubscribe();
   }
-
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getPagedData(data: Task[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
-  }
-
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getSortedData(data: Task[]) {
-    if (!this.sort.active || this.sort.direction === '') {
-      return data;
-    }
-
-    return data.sort((a, b) => {
-      const isAsc = this.sort.direction === 'asc';
-      switch (this.sort.active) {
-        case 'title': return compare(a.title, b.title, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        default: return 0;
-      }
-    });
-  }
-}
-
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a, b, isAsc) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

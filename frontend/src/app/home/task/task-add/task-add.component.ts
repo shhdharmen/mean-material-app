@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
+import { TaskService } from '@app/core/services';
+import { Task } from '@app/core/models';
+import { NotificationService } from '@app/core/notifications/notification.service';
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kps-task-add',
@@ -8,87 +14,66 @@ import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
   styleUrls: ['./task-add.component.scss'],
   animations: [routeAnimations]
 })
-export class TaskAddComponent {
+export class TaskAddComponent implements OnInit {
   routerAnimationClass = ROUTE_ANIMATIONS_ELEMENTS;
-  addressForm = this.fb.group({
-    title: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
-  });
-
-  hasUnitNumber = false;
-
-  states = [
-    { name: 'Alabama', abbreviation: 'AL' },
-    { name: 'Alaska', abbreviation: 'AK' },
-    { name: 'American Samoa', abbreviation: 'AS' },
-    { name: 'Arizona', abbreviation: 'AZ' },
-    { name: 'Arkansas', abbreviation: 'AR' },
-    { name: 'California', abbreviation: 'CA' },
-    { name: 'Colorado', abbreviation: 'CO' },
-    { name: 'Connecticut', abbreviation: 'CT' },
-    { name: 'Delaware', abbreviation: 'DE' },
-    { name: 'District Of Columbia', abbreviation: 'DC' },
-    { name: 'Federated States Of Micronesia', abbreviation: 'FM' },
-    { name: 'Florida', abbreviation: 'FL' },
-    { name: 'Georgia', abbreviation: 'GA' },
-    { name: 'Guam', abbreviation: 'GU' },
-    { name: 'Hawaii', abbreviation: 'HI' },
-    { name: 'Idaho', abbreviation: 'ID' },
-    { name: 'Illinois', abbreviation: 'IL' },
-    { name: 'Indiana', abbreviation: 'IN' },
-    { name: 'Iowa', abbreviation: 'IA' },
-    { name: 'Kansas', abbreviation: 'KS' },
-    { name: 'Kentucky', abbreviation: 'KY' },
-    { name: 'Louisiana', abbreviation: 'LA' },
-    { name: 'Maine', abbreviation: 'ME' },
-    { name: 'Marshall Islands', abbreviation: 'MH' },
-    { name: 'Maryland', abbreviation: 'MD' },
-    { name: 'Massachusetts', abbreviation: 'MA' },
-    { name: 'Michigan', abbreviation: 'MI' },
-    { name: 'Minnesota', abbreviation: 'MN' },
-    { name: 'Mississippi', abbreviation: 'MS' },
-    { name: 'Missouri', abbreviation: 'MO' },
-    { name: 'Montana', abbreviation: 'MT' },
-    { name: 'Nebraska', abbreviation: 'NE' },
-    { name: 'Nevada', abbreviation: 'NV' },
-    { name: 'New Hampshire', abbreviation: 'NH' },
-    { name: 'New Jersey', abbreviation: 'NJ' },
-    { name: 'New Mexico', abbreviation: 'NM' },
-    { name: 'New York', abbreviation: 'NY' },
-    { name: 'North Carolina', abbreviation: 'NC' },
-    { name: 'North Dakota', abbreviation: 'ND' },
-    { name: 'Northern Mariana Islands', abbreviation: 'MP' },
-    { name: 'Ohio', abbreviation: 'OH' },
-    { name: 'Oklahoma', abbreviation: 'OK' },
-    { name: 'Oregon', abbreviation: 'OR' },
-    { name: 'Palau', abbreviation: 'PW' },
-    { name: 'Pennsylvania', abbreviation: 'PA' },
-    { name: 'Puerto Rico', abbreviation: 'PR' },
-    { name: 'Rhode Island', abbreviation: 'RI' },
-    { name: 'South Carolina', abbreviation: 'SC' },
-    { name: 'South Dakota', abbreviation: 'SD' },
-    { name: 'Tennessee', abbreviation: 'TN' },
-    { name: 'Texas', abbreviation: 'TX' },
-    { name: 'Utah', abbreviation: 'UT' },
-    { name: 'Vermont', abbreviation: 'VT' },
-    { name: 'Virgin Islands', abbreviation: 'VI' },
-    { name: 'Virginia', abbreviation: 'VA' },
-    { name: 'Washington', abbreviation: 'WA' },
-    { name: 'West Virginia', abbreviation: 'WV' },
-    { name: 'Wisconsin', abbreviation: 'WI' },
-    { name: 'Wyoming', abbreviation: 'WY' }
+  taskForm: FormGroup;
+  modules = [
+    { name: 'Client', value: 'client' },
+    { name: 'Client Admin', value: 'clientAdmin' },
+    { name: 'Support', value: 'support' },
+    { name: 'Support Admin', value: 'supportAdmin' },
+    { name: 'Seller', value: 'seller' },
+    { name: 'Seller Admin', value: 'sellerAdmin' }
   ];
 
-  constructor(private fb: FormBuilder) { }
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
+  isHandset: boolean;
+
+  @ViewChild('taskTitle') taskTitle: ElementRef;
+
+  constructor(private fb: FormBuilder, private taskService: TaskService, private notificationService: NotificationService,
+    private breakpointObserver: BreakpointObserver) { }
+
+  ngOnInit() {
+    this.initForm();
+    this.isHandset$.subscribe(isHandset => {
+      this.isHandset = isHandset;
+    });
+  }
+
+  private initForm() {
+    this.taskForm = this.fb.group({
+      title: [null, Validators.required],
+      description: null,
+      category: ['medium', Validators.required],
+      module: ['client', Validators.required]
+    });
+    this.taskTitle.nativeElement.focus();
+  }
 
   onSubmit() {
-    alert('Thanks!');
+    if (this.taskForm.valid) {
+      this.taskForm.controls['title'].setValue(this.taskForm.controls['title'].value.trim());
+      if (this.taskForm.controls['description'].value) {
+        this.taskForm.controls['description'].setValue(this.taskForm.controls['description'].value.trim());
+      }
+      this.taskService.add(<Task>this.taskForm.value).subscribe(res => {
+        if (res.success) {
+          this.notificationService.success(res.message, this.isHandset);
+          // to get rid of validation error, setting a blank space value
+          this.taskForm.controls['title'].setValue(' ');
+          this.taskTitle.nativeElement.focus();
+          this.taskForm.controls['description'].setValue('');
+        } else {
+          this.notificationService.error(res.message, this.isHandset);
+        }
+      }, err => {
+        console.log(err);
+        this.notificationService.error(err, this.isHandset);
+      });
+    }
   }
 }

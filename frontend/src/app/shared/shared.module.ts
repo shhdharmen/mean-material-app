@@ -17,7 +17,9 @@ import {
   MatSortModule,
   MatIconRegistry,
   MatTooltipModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -43,6 +45,8 @@ import { RouterModule } from '@angular/router';
     MatSortModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     RouterModule
   ],
   declarations: [ComponentPageHeaderComponent],
@@ -65,6 +69,8 @@ import { RouterModule } from '@angular/router';
     MatSortModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
     ComponentPageHeaderComponent
   ]
 })

@@ -3,10 +3,9 @@ const express = require('express');
 const router = express.Router();
 const task = require('../../models/Task');
 
-//GET HTTP method to /bucketlist
+// GET HTTP sorted and paginated data
 router.get('/', (req, res) => {
-    console.log("backend/controllers/tasks/tasks.controller.js | router.get('/')");
-    task.getAllTasks((err, tasks) => {
+    task.getAllTasks(req.query, (err, tasks) => {
         if (err) {
             res.status(501).json({ success: false, message: `Failed to load all tasks. Error: ${err}` });
         }
@@ -18,7 +17,7 @@ router.get('/', (req, res) => {
     });
 });
 
-//GET HTTP method to /bucketlist
+// GET HTTP id data
 router.get('/:id', (req, res) => {
     //access the parameter which is the id of the item to be deleted
     let id = req.params.id;
@@ -34,7 +33,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-//POST HTTP method to /bucketlist
+//POST HTTP method to add task
 router.post('/', (req, res, next) => {
     let newTask = new task({
         title: req.body.title,
@@ -53,7 +52,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
-//DELETE HTTP method to /bucketlist. Here, we pass in a param which is the object id.
+//DELETE HTTP method to delete task. Here, we pass in a param which is the object id.
 router.delete('/:id', (req, res, next) => {
     //access the parameter which is the id of the item to be deleted
     let id = req.params.id;

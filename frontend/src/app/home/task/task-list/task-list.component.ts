@@ -3,24 +3,33 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { TaskListDataSource } from './task-list-datasource';
 import { ActivatedRoute } from '@angular/router';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
+import { TaskService } from '@app/core/services';
+import { UtilityService } from '@app/core/services/utility/utility.service';
 
 @Component({
   selector: 'kps-task-list',
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.scss'],
+  styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
   routerAnimationClass = ROUTE_ANIMATIONS_ELEMENTS;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TaskListDataSource;
+  isLoadingResults = true;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'title'];
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, private taskService: TaskService, private utilityService: UtilityService) { }
 
   ngOnInit() {
-    this.dataSource = new TaskListDataSource(this.paginator, this.sort, this.activatedRoute);
+    this.dataSource = new TaskListDataSource(this.paginator, this.sort, this.activatedRoute, this.taskService);
+    this.utilityService.tick_then(() => {
+      this.dataSource.isLoadingResults$.subscribe(isLoadingResults => {
+        // console.log(isLoadingResults);
+        this.isLoadingResults = isLoadingResults;
+      });
+    });
   }
 }

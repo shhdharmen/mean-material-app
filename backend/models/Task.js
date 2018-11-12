@@ -14,22 +14,25 @@ const TaskSchema = mongoose.Schema({
     category: {
         type: String,
         required: true,
-        enum: ['High', 'Medium', 'Low']
+        enum: ['high', 'medium', 'low']
     },
     module: {
         type: String,
         required: true,
-        enum: ['Client', 'Client Admin', 'Support', 'Support Admin', 'Seller', 'Seller Admin']
+        enum: ['client', 'clientAdmin', 'support', 'supportAdmin', 'seller', 'sellerAdmin']
     }
 });
 
 const TaskList = module.exports = mongoose.model('TaskList', TaskSchema);
 
 //BucketList.find() returns all the lists
-module.exports.getAllTasks = (callback) => {
+module.exports.getAllTasks = (query, callback) => {
+    const sort = query.sort;
+    const order = query.order;
+    const page = query.page;
     try {
         console.log("backend/models/Task.js | getAllTasks");
-        TaskList.find(callback);
+        TaskList.find(callback).sort(sort);
     } catch (err) {
         console.log('err', err);
     }

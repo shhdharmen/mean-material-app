@@ -11,7 +11,21 @@ export class TaskService {
 
   constructor(private http: HttpClient, private apiUrlService: ApiUrlService) { }
 
-  getAll() {
-    return this.http.get<Task[]>(`${this.apiUrlService.API_URL}/task`);
+  getAll(sort?: string, order?: string, page?: number) {
+    if (!sort) {
+      sort = 'title';
+    }
+    if (!order) {
+      order = 'asc';
+    }
+    if (!page) {
+      page = 0;
+    }
+    return this.http.get<{ success: boolean, tasks: Task[] }>
+      (`${this.apiUrlService.API_URL}/task?sort=${sort}&order=${order}&page=${page + 1}`);
+  }
+
+  add(task: Task) {
+    return this.http.post<{ success: boolean, message: string }>(`${this.apiUrlService.API_URL}/task`, task);
   }
 }

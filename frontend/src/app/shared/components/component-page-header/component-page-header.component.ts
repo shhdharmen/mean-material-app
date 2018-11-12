@@ -38,7 +38,6 @@ export class ComponentPageHeaderComponent implements OnInit, OnDestroy {
   updateChildName() {
     const segments = this.router.url.split('/');
     segments.splice(0, 2);
-    console.log(segments[0]);
     this.utilityService.tick_then(() => {
       this.homeService.updateChild(segments[0]);
     });

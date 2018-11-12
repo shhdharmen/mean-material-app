@@ -1,0 +1,45 @@
+@mixin custom-snackbar-theme($my-theme-warning, $my-theme-success) {
+    .success-notification-overlay,
+    .info-notification-overlay,
+    .warning-notification-overlay,
+    .error-notification-overlay,
+    .default-notification-overlay {
+        border-left: 4px solid;
+        &::before {
+            font-family: "Material Icons";
+            float: left;
+            font-size: 24px;
+            // because we want spaces to be considered in content
+            // https://stackoverflow.com/questions/5467605/add-a-space-after-an-element-using-after
+            white-space: pre;
+        }
+    }
+    .success-notification-overlay {
+        border-left-color: mat-color($my-theme-success, 400);
+        &::before {
+            content: "\e86c  ";
+            color: mat-color($my-theme-success, 400);
+        }
+    }
+    .info-notification-overlay,
+    .default-notification-overlay {
+        border-left-color: #fff;
+        &::before {
+            content: "\e88e  ";
+            color: #fff;
+        }
+    }
+    .warning-notification-overlay,
+    .error-notification-overlay {
+        border-left-color: mat-color($my-theme-warning, 400);
+        &::before {
+            color: mat-color($my-theme-warning, 400);
+        }
+    }
+    .warning-notification-overlay::before {
+        content: "\e002  ";
+    }
+    .error-notification-overlay::before {
+        content: "\e000  ";
+    }
+}

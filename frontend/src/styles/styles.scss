@@ -14,7 +14,12 @@
 // import our custom theme
 @import 'theme.scss';
 @import 'custom-palettes.scss';
+
+// adjust svg icons
 @import 'material-design-icons.scss';
+
+// import notifications
+@import 'notifications.scss';
 
 // specify theme class eg: <body class="my-theme"> ... </body>
 .my-theme {
@@ -22,6 +27,8 @@
     @include angular-material-theme($my-theme);
 
     @include custom-components-theme($my-theme);
+
+    @include custom-snackbar-theme($my-theme-warning, $my-theme-success);
 }
 
 /* You can add global styles to this file, and also import other style files */
