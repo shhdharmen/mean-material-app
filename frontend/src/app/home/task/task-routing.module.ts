@@ -10,7 +10,7 @@ import { TaskComponent } from './task.component';
 const routes: Routes = [
   {
     path: '', component: TaskComponent, children: [
-      { path: 'list', component: TaskListComponent, resolve: { tasks: TaskListResolver } },
+      { path: 'list', component: TaskListComponent, resolve: { result: TaskListResolver } },
       { path: 'view/:id', component: TaskViewComponent },
       { path: 'edit/:id', component: TaskEditComponent },
       { path: 'add', component: TaskAddComponent },

@@ -24,8 +24,7 @@ export class TaskListDataSource extends DataSource<Task> {
     private taskService: TaskService) {
     super();
     this.activatedRouteDataSubscriber = this.activatedRoute.data.subscribe(data => {
-      this.data = data.tasks.tasks;
-      console.log(this.data);
+      this.data = data.result.tasks;
       this.isLoadingResults_.next(false);
     });
   }
@@ -44,21 +43,17 @@ export class TaskListDataSource extends DataSource<Task> {
       this.sort.sortChange
     ];
 
-    // Set the paginator's length
-    this.paginator.length = this.data.length;
-
     return merge(...dataMutations).pipe(
       startWith({}),
       switchMap(() => {
         this.isLoadingResults_.next(true);
         return this.taskService.getAll(
-          this.sort.active, this.sort.direction, this.paginator.pageIndex);
+          this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize);
       }),
       map(data => {
         // Flip flag to show that loading has finished.
         this.isLoadingResults_.next(false);
-        this.paginator.length = this.data.length;
-        console.log(data);
+        this.paginator.length = data.totalTasks;
         return data.tasks;
       }),
       catchError(() => {

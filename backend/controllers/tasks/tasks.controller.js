@@ -5,12 +5,12 @@ const task = require('../../models/Task');
 
 // GET HTTP sorted and paginated data
 router.get('/', (req, res) => {
-    task.getAllTasks(req.query, (err, tasks) => {
+    task.getAllTasks(req.query, (err, tasks, totalTasks) => {
         if (err) {
             res.status(501).json({ success: false, message: `Failed to load all tasks. Error: ${err}` });
         }
         else {
-            res.status(200).write(JSON.stringify({ success: true, tasks: tasks }, null, 2));
+            res.status(200).write(JSON.stringify({ success: true, tasks: tasks, totalTasks: totalTasks }, null, 2));
             res.end();
 
         }

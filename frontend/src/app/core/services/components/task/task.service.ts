@@ -11,7 +11,7 @@ export class TaskService {
 
   constructor(private http: HttpClient, private apiUrlService: ApiUrlService) { }
 
-  getAll(sort?: string, order?: string, page?: number) {
+  getAll(sort?: string, order?: string, page?: number, limitTo?: number) {
     if (!sort) {
       sort = 'title';
     }
@@ -21,8 +21,11 @@ export class TaskService {
     if (!page) {
       page = 0;
     }
-    return this.http.get<{ success: boolean, tasks: Task[] }>
-      (`${this.apiUrlService.API_URL}/task?sort=${sort}&order=${order}&page=${page + 1}`);
+    if (!limitTo) {
+      limitTo = 10;
+    }
+    return this.http.get<{ success: boolean, tasks: Task[], totalTasks: number }>
+      (`${this.apiUrlService.API_URL}/task?sort=${sort}&order=${order}&page=${page + 1}&limitTo=${limitTo}`);
   }
 
   add(task: Task) {

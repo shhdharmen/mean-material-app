@@ -19,7 +19,8 @@ import {
   MatTooltipModule,
   MatExpansionModule,
   MatSnackBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -47,6 +48,7 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     RouterModule
   ],
   declarations: [ComponentPageHeaderComponent],
@@ -71,6 +73,7 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
     ComponentPageHeaderComponent
   ]
 })

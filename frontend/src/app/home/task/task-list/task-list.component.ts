@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
 import { TaskService } from '@app/core/services';
 import { UtilityService } from '@app/core/services/utility/utility.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Task } from '@app/core/models';
 
 @Component({
   selector: 'kps-task-list',
@@ -17,9 +19,9 @@ export class TaskListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TaskListDataSource;
   isLoadingResults = true;
-
+  selection = new SelectionModel<Task>(true, []);
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'title'];
+  displayedColumns = ['select', 'title', 'description'];
 
   constructor(private activatedRoute: ActivatedRoute, private taskService: TaskService, private utilityService: UtilityService) { }
 
@@ -31,5 +33,19 @@ export class TaskListComponent implements OnInit {
         this.isLoadingResults = isLoadingResults;
       });
     });
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }
