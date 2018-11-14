@@ -7,7 +7,7 @@ import { TaskViewComponent } from './task-view/task-view.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { SharedModule } from '@app/shared';
-import { TaskListResolver } from '@app/core/resolvers';
+import { TaskListResolver } from '@appcore/resolvers';
 import { TaskComponent } from './task.component';
 
 @NgModule({

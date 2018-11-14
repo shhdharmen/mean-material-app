@@ -2,9 +2,9 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, Subscription, BehaviorSubject } from 'rxjs';
-import { Task } from '@app/core/models';
+import { Task } from '@appcore/models';
 import { ActivatedRoute } from '@angular/router';
-import { TaskService } from '@app/core/services';
+import { TaskService } from '@appcore/services';
 
 
 /**

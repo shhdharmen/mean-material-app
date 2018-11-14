@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '@appcore';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'kps-dashboard',
+  selector: 'mma-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

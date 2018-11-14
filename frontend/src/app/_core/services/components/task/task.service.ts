@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CoreModule } from '@app/core/core.module';
+import { CoreModule } from '@appcore/core.module';
 import { HttpClient } from '@angular/common/http';
-import { Task } from '@app/core/models';
+import { Task } from '@appcore/models';
 import { ApiUrlService } from '../../api-url/api-url.service';
 
 @Injectable({

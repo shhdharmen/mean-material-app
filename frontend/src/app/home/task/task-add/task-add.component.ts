@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
-import { TaskService } from '@app/core/services';
-import { Task } from '@app/core/models';
-import { NotificationService } from '@app/core/notifications/notification.service';
-import { Observable } from 'rxjs';
+import { routeAnimations, ROUTE_ANIMATIONS_ELEMENTS } from '@appcore';
+import { TaskService } from '@appcore/services';
+import { Task } from '@appcore/models';
+import { NotificationService } from '@appcore/notifications/notification.service';
+import { Observable, Subscription } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'kps-task-add',
+  selector: 'mma-task-add',
   templateUrl: './task-add.component.html',
   styleUrls: ['./task-add.component.scss'],
   animations: [routeAnimations]
 })
-export class TaskAddComponent implements OnInit {
+export class TaskAddComponent implements OnInit, OnDestroy {
   routerAnimationClass = ROUTE_ANIMATIONS_ELEMENTS;
   taskForm: FormGroup;
   modules = [
@@ -31,6 +31,9 @@ export class TaskAddComponent implements OnInit {
       map(result => result.matches)
     );
   isHandset: boolean;
+  isDescriptionSameAsTitle: boolean;
+
+  descSameAsTitleValueSubscriber$: Subscription;
 
   @ViewChild('taskTitle') taskTitle: ElementRef;
 
@@ -42,12 +45,31 @@ export class TaskAddComponent implements OnInit {
     this.isHandset$.subscribe(isHandset => {
       this.isHandset = isHandset;
     });
+    this.handleDescVsTitle();
+  }
+
+  private handleDescVsTitle() {
+    let titleValueSubscriber$: Subscription;
+    this.descSameAsTitleValueSubscriber$ = this.taskForm.controls['descSameAsTitle'].valueChanges.subscribe(value => {
+      if (value) {
+        const titleValue = this.taskForm.controls['title'].value;
+        this.taskForm.controls['description'].setValue(titleValue);
+        titleValueSubscriber$ = this.taskForm.controls['title'].valueChanges.subscribe(_titleValue => {
+          this.taskForm.controls['description'].setValue(_titleValue);
+        });
+      } else {
+        if (titleValueSubscriber$) {
+          titleValueSubscriber$.unsubscribe();
+        }
+      }
+    });
   }
 
   private initForm() {
     this.taskForm = this.fb.group({
       title: [null, Validators.required],
       description: null,
+      descSameAsTitle: false,
       category: ['medium', Validators.required],
       module: ['client', Validators.required]
     });
@@ -75,5 +97,9 @@ export class TaskAddComponent implements OnInit {
         this.notificationService.error(err, this.isHandset);
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.descSameAsTitleValueSubscriber$.unsubscribe();
   }
 }

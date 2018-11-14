@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'kps-task-view',
+  selector: 'mma-task-view',
   templateUrl: './task-view.component.html',
   styleUrls: ['./task-view.component.scss']
 })

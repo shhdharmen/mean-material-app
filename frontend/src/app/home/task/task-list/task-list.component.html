@@ -34,11 +34,24 @@
             <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
               [indeterminate]="selection.hasValue() && !isAllSelected()">
             </mat-checkbox>
+            <button mat-button [matMenuTriggerFor]="tableMenu" aria-label="Table menu">
+              {{(isAllSelectedDb ? paginator.length :
+                selection.selected.length) + '/' + paginator.length}} <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #tableMenu="matMenu" xPosition="before">
+              <button mat-menu-item (click)="!isAllSelected() ? masterToggle() : toggleAllSelectedDb();">
+                <mat-icon *ngIf="isAllSelected() && !isAllSelectedDb;else blankPage">check_box</mat-icon><ng-template #blankPage><mat-icon>check_box_outline_blank</mat-icon></ng-template> {{paginator.pageSize}} of this
+                page.
+              </button>
+              <button mat-menu-item (click)="toggleAllSelectedDb()">
+                <mat-icon *ngIf="isAllSelected() && isAllSelectedDb;else blankAll">check_box</mat-icon><ng-template #blankAll><mat-icon>check_box_outline_blank</mat-icon></ng-template>
+                All from all pages.
+              </button>
+            </mat-menu>
           </th>
           <td mat-cell *matCellDef="let row">
-            <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="onRowSelectionChange($event, row._id)"
+              [checked]="selection.isSelected(row._id)">
             </mat-checkbox>
           </td>
         </ng-container>

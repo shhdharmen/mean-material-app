@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '@app/core/services';
+import { AuthService } from '@appcore/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '@appcore';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'kps-login',
+  selector: 'mma-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })

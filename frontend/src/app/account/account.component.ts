@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { routeAnimations } from '@app/core';
+import { routeAnimations } from '@appcore';
 
 @Component({
-  selector: 'kps-account',
+  selector: 'mma-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss'],
   animations: [routeAnimations]

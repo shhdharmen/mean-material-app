@@ -1,7 +1,7 @@
 {
   "name": "mean-material-app",
   "version": "0.0.1",
-  "description": "A MEAN stack app with Angular 7, Matrial Design, Bootstrap 4, Node, Express, JWT, Mongoose, MongoDB",
+  "description": "A MEAN stack app with Angular 7, Material Design, Bootstrap 4, Node, Express, JWT, Mongoose, MongoDB",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
@@ -9,9 +9,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build-main": "npm i",
+    "build-backend": "npm i --prefix ./backend",
+    "build-frontend": "npm i --prefix ./frontend",
     "start-backend": "npm start --prefix ./backend",
     "start-frontend": "npm start --prefix ./frontend",
-    "start": "run-p start-frontend start-backend"
+    "start": "run-p start-frontend start-backend",
+    "build": "npm run build-main && npm run build-frontend && npm run build-backend"
   },
   "repository": {
     "type": "git",
@@ -20,7 +24,7 @@
   "keywords": [
     "MEAN Stack",
     "Angular 7",
-    "Matrial Design",
+    "Material Design",
     "Bootstrap 4",
     "Node",
     "Express",

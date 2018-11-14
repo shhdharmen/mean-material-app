@@ -4,7 +4,7 @@ import { TaskViewComponent } from './task-view/task-view.component';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { TaskAddComponent } from './task-add/task-add.component';
 import { TaskListComponent } from './task-list/task-list.component';
-import { TaskListResolver } from '@app/core/resolvers';
+import { TaskListResolver } from '@appcore/resolvers';
 import { TaskComponent } from './task.component';
 
 const routes: Routes = [

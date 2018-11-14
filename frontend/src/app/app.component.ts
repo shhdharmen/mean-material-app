@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimationsService } from './core';
+import { AnimationsService } from '@appcore';
 
 @Component({
-  selector: 'kps-root',
+  selector: 'mma-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

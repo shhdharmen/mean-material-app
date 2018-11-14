@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { TaskListDataSource } from './task-list-datasource';
 import { ActivatedRoute } from '@angular/router';
-import { ROUTE_ANIMATIONS_ELEMENTS } from '@app/core';
-import { TaskService } from '@app/core/services';
-import { UtilityService } from '@app/core/services/utility/utility.service';
+import { ROUTE_ANIMATIONS_ELEMENTS } from '@appcore';
+import { TaskService } from '@appcore/services';
+import { UtilityService } from '@appcore/services/utility/utility.service';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Task } from '@app/core/models';
+import { merge } from 'rxjs';
 
 @Component({
-  selector: 'kps-task-list',
+  selector: 'mma-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.scss']
 })
@@ -19,7 +19,8 @@ export class TaskListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: TaskListDataSource;
   isLoadingResults = true;
-  selection = new SelectionModel<Task>(true, []);
+  isAllSelectedDb = false;
+  selection = new SelectionModel<string>(true, []);
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['select', 'title', 'description'];
 
@@ -32,6 +33,14 @@ export class TaskListComponent implements OnInit {
         // console.log(isLoadingResults);
         this.isLoadingResults = isLoadingResults;
       });
+    });
+    const dataMutations = [
+      this.paginator.page,
+      this.sort.sortChange
+    ];
+    merge(...dataMutations).subscribe(_ => {
+      this.selection.clear();
+      this.isAllSelectedDb = false;
     });
   }
 
@@ -46,6 +55,22 @@ export class TaskListComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ?
       this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
+      this.dataSource.data.forEach(row => {
+        this.selection.select(row._id);
+      });
+  }
+
+  // toggle all records selection
+  toggleAllSelectedDb() {
+    this.isAllSelectedDb = !this.isAllSelectedDb;
+  }
+
+  onRowSelectionChange(ev: any, id: string) {
+    if (ev) {
+      this.selection.toggle(id);
+      if (!this.selection.isSelected(id) || !this.isAllSelected()) {
+        this.isAllSelectedDb = false;
+      }
+    }
   }
 }

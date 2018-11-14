@@ -3,18 +3,18 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatSidenav } from '@angular/material/sidenav';
-import { AuthService, HomeService } from '@app/core/services';
-import { User } from '@app/core/models';
-import { routeAnimations } from '@app/core';
+import { AuthService, HomeService } from '@appcore/services';
+import { User } from '@appcore/models';
+import { routeAnimations } from '@appcore';
 
 @Component({
-  selector: 'kps-home',
+  selector: 'mma-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: [routeAnimations]
 })
 export class HomeComponent implements OnInit {
-  title = 'Angular 7 List App';
+  title = 'MEAN Material App';
   currentUser: User = JSON.parse(localStorage.getItem('currentUser'));
   routes: { path: string, label: string }[];
   @ViewChild('drawer') drawer: MatSidenav;

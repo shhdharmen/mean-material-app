@@ -2,7 +2,7 @@
 @mixin home-component-theme($theme) {
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
-    kps-home {
+    mma-home {
         .sidenav-container {
             .sidenav {
                 .mat-toolbar {
