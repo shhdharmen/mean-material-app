@@ -1,7 +1,7 @@
 {
-  "name": "kp-spec-app",
-  "version": "1.0.0",
-  "description": "Soon to be converted to private repo",
+  "name": "mean-material-app",
+  "version": "0.0.1",
+  "description": "A MEAN stack app with Angular 7, Matrial Design, Bootstrap 4, Node, Express, JWT, Mongoose, MongoDB",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
@@ -15,13 +15,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shhdharmen/kp-spec-app.git"
+    "url": "git+https://github.com/shhdharmen/mean-material-app.git"
   },
-  "keywords": [],
+  "keywords": [
+    "MEAN Stack",
+    "Angular 7",
+    "Matrial Design",
+    "Bootstrap 4",
+    "Node",
+    "Express",
+    "JWT",
+    "Mongoose",
+    "MongoDB"
+  ],
   "author": "Dharmen Shah",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/shhdharmen/kp-spec-app/issues"
+    "url": "https://github.com/shhdharmen/mean-material-app/issues"
   },
-  "homepage": "https://github.com/shhdharmen/kp-spec-app#readme"
+  "homepage": "https://github.com/shhdharmen/mean-material-app#readme"
 }
