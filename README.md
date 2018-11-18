@@ -9,5 +9,6 @@ cd frontend
 npm i
 cd ../backend
 npm i
+cd ..
 npm start // it will start both, frontend at port 4205 and backend at 3000
 ```
