@@ -9,6 +9,12 @@
           <mat-card-content>
             <div class="row">
               <div class="col">
+                <div color="primary" class="alert" role="alert">
+                  Username: test<br>
+                  Password: test
+                </div>
+              </div>
+              <div class="col">
                 <mat-form-field class="full-width">
                   <input matInput placeholder="User ID / Email" formControlName="username">
                   <mat-error *ngIf="loginForm.controls['username'].hasError('required')">

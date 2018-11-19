@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+@mixin custom-colors($theme) {
+    $primary: map-get($theme, primary);
+    [color=primary] {
+        background-color: mat-color($primary);
+    }
+}
