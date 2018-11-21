@@ -24,6 +24,8 @@ async function authenticate({ username, password }) {
                 expiresIn: 10,
                 user: userWithoutPassword
             };
+        } else{
+            return null;
         }
     } catch (err) {
         console.log(err);

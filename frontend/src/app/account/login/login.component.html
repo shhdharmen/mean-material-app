@@ -9,6 +9,12 @@
           <mat-card-content>
             <div class="row">
               <div class="col">
+                <div color="accent" class="alert" role="alert">
+                  Username: test<br>
+                  Password: test
+                </div>
+              </div>
+              <div class="col">
                 <mat-form-field class="full-width">
                   <input matInput placeholder="User ID / Email" formControlName="username">
                   <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
@@ -29,7 +35,11 @@
             </div>
           </mat-card-content>
           <mat-card-actions class="text-center">
-            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button mat-raised-button color="primary" type="submit">
+              <span>Submit</span>
+              <span *ngIf="loading">...</span>
+              <mat-spinner [diameter]="24" *ngIf="loading" color="white" class="ml-2 d-inline-block"></mat-spinner>
+            </button>
           </mat-card-actions>
         </mat-card>
       </form>

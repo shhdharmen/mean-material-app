@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+@mixin alert($theme) {
+    $accent: map-get($theme, accent);
+    .alert {
+        position: relative;
+        padding: .75rem 1.25rem;
+        margin-bottom: 1rem;
+        border-radius: .25rem;
+        &[color=accent] {
+            border: 1px solid mat-color($accent);
+            background: mat-color($accent, lighter);
+        }
+    }
+}

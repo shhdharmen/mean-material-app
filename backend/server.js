@@ -2,23 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const config = require('./config/database');
 const taskCtrl = require('./controllers/tasks/tasks.controller');
 const authCtrl = require('./controllers/auth/auth.controller');
 const errorHandler = require('./_helpers/error-handler');
 const jwt = require('./_helpers/jwt');
-
-try {
-  //Connect mongoose to our database
-  mongoose.connect(config.admin).then(data => {
-    mongoose.connect(config.tasks);
-  }).catch(err => {
-    console.error("mongoose.connect catch error", err);
-  });
-} catch (err) {
-  console.error("mongoose.connect try error", err);
-}
 
 //Initialize our app variable
 const app = express();

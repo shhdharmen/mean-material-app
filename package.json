@@ -9,13 +9,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-main": "npm i",
-    "build-backend": "npm i --prefix ./backend",
-    "build-frontend": "npm i --prefix ./frontend",
     "start-backend": "npm start --prefix ./backend",
     "start-frontend": "npm start --prefix ./frontend",
-    "start": "run-p start-frontend start-backend",
-    "build": "npm run build-main && npm run build-frontend && npm run build-backend"
+    "start": "run-p start-frontend start-backend"
   },
   "repository": {
     "type": "git",

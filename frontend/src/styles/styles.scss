@@ -21,6 +21,15 @@
 // import notifications
 @import 'notifications.scss';
 
+// import custom-colors
+@import 'custom-colors.scss';
+
+// import alert
+@import 'alert.scss';
+
+// import spinner
+@import 'spinner.scss';
+
 // specify theme class eg: <body class="my-theme"> ... </body>
 .my-theme {
     // use our theme with angular-material-theme mixin
@@ -29,6 +38,12 @@
     @include custom-components-theme($my-theme);
 
     @include custom-snackbar-theme($my-theme-warning, $my-theme-success);
+
+    @include custom-colors($my-theme);
+
+    @include alert($my-theme);
+
+    @include spinner;
 }
 
 /* You can add global styles to this file, and also import other style files */
