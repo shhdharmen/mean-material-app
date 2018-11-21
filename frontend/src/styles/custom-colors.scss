@@ -1,7 +1,15 @@
 @import '~@angular/material/theming';
 @mixin custom-colors($theme) {
     $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
     [color=primary] {
         background-color: mat-color($primary);
+    }
+    [color=accent]{
+        background-color: mat-color($accent);
+    }
+    [color=warn]{
+        background-color: mat-color($warn);
     }
 }

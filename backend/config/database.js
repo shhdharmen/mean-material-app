@@ -1,6 +1,18 @@
-// 27017 is the default port number.
-module.exports = {
-    admin : 'mongodb://myUserAdmin:abc123@localhost:27017/admin',
-    tasks: 'mongodb://localhost:27017/mean-material-app-db',
-    users: 'mongodb://localhost:27017/users'
+const mongoose = require('mongoose');
+const server = '127.0.0.1:27017'; // REPLACE WITH YOUR DB SERVER
+const database = 'mean-material-app-db';      // REPLACE WITH YOUR DB NAME
+class Database {
+    constructor() {
+        this._connect();
+    }
+    _connect() {
+        mongoose.connect(`mongodb://${server}/${database}`)
+            .then(() => {
+                console.log('Database connection successful')
+            })
+            .catch(err => {
+                console.error('Database connection error')
+            });
+    }
 }
+module.exports = new Database();

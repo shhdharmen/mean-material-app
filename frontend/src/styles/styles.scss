@@ -27,6 +27,9 @@
 // import alert
 @import 'alert.scss';
 
+// import spinner
+@import 'spinner.scss';
+
 // specify theme class eg: <body class="my-theme"> ... </body>
 .my-theme {
     // use our theme with angular-material-theme mixin
@@ -39,6 +42,8 @@
     @include custom-colors($my-theme);
 
     @include alert($my-theme);
+
+    @include spinner;
 }
 
 /* You can add global styles to this file, and also import other style files */

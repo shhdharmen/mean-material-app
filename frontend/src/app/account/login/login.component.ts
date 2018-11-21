@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '@appcore/services';
+import { AuthService, LocalStorageService } from '@appcore/services';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { ROUTE_ANIMATIONS_ELEMENTS } from '@appcore';
 import { Subscription } from 'rxjs';
+import { IAuthResult } from '@app/_core/models/auth';
+import * as moment from 'moment';
 
 @Component({
   selector: 'mma-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private localStorage: LocalStorageService) { }
 
   ngOnInit() {
     // reset login status
@@ -49,15 +51,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.loading = true;
     this.loginSubscriber = this.authService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
       .subscribe(
-        data => {
+        resp => {
+          this.loading = false;
+          this.setSession(resp);
           this.router.navigate([this.returnUrl]);
         },
         error => {
           this.error = error;
           this.loading = false;
         });
+  }
+
+  private setSession(authResult: IAuthResult) {
+    this.localStorage.setItem('currentUser', authResult.user);
+    const expiresAt = moment().add(authResult.expiresIn, 'second');
+    this.localStorage.setItem('id_token', authResult.idToken);
+    this.localStorage.setItem('expires_at', expiresAt);
   }
 
   ngOnDestroy(): void {

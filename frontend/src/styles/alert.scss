@@ -6,7 +6,7 @@
         padding: .75rem 1.25rem;
         margin-bottom: 1rem;
         border-radius: .25rem;
-        &[color=primary] {
+        &[color=accent] {
             border: 1px solid mat-color($accent);
             background: mat-color($accent, lighter);
         }

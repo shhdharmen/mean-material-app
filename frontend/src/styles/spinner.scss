@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@mixin spinner {
+    .mat-spinner,
+    .mat-progress-spinner {
+        &[color=white] {
+            circle {
+                stroke: #fff;
+                background: transparent;
+            }
+        }
+    }
+}
