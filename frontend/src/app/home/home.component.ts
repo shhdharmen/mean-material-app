@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../_core/services/local-storage/local-storage.service';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
@@ -15,7 +16,7 @@ import { routeAnimations } from '@appcore';
 })
 export class HomeComponent implements OnInit {
   title = 'MEAN Material App';
-  currentUser: User = JSON.parse(localStorage.getItem('currentUser'));
+  currentUser: User = this.localStorage.getItem('currentUser');
   routes: { path: string, label: string }[];
   @ViewChild('drawer') drawer: MatSidenav;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
   loadedChild$: Observable<string>;
   constructor(private breakpointObserver: BreakpointObserver,
     private authService: AuthService,
-    private homeService: HomeService) {
+    private homeService: HomeService,
+    private localStorage: LocalStorageService) {
   }
 
   ngOnInit() {

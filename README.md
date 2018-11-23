@@ -1,4 +1,4 @@
-# mean-material-app
+# mean-material
 ## Getting Started
 ### Run your app
 ```
@@ -9,6 +9,7 @@ cd frontend
 npm i
 cd ../backend
 npm i
+npm i -g nodemon // for devlopment purpose only
 cd ..
 npm start // it will start both, frontend at port 4205 and backend at 3000
 ```

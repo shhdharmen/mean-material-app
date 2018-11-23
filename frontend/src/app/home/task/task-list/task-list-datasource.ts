@@ -1,10 +1,11 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map, startWith, switchMap, catchError } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, Subscription, BehaviorSubject } from 'rxjs';
+import { Observable, of as observableOf, merge, Subscription, BehaviorSubject, Subject } from 'rxjs';
 import { Task } from '@appcore/models';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '@appcore/services';
+import { EventEmitter } from '@angular/core';
 
 
 /**
@@ -21,7 +22,8 @@ export class TaskListDataSource extends DataSource<Task> {
   constructor(private paginator: MatPaginator,
     private sort: MatSort,
     private activatedRoute: ActivatedRoute,
-    private taskService: TaskService) {
+    private taskService: TaskService,
+    private dataMustBeUpdated: EventEmitter<any>) {
     super();
     this.activatedRouteDataSubscriber = this.activatedRoute.data.subscribe(data => {
       this.data = data.result.tasks;
@@ -40,7 +42,8 @@ export class TaskListDataSource extends DataSource<Task> {
     const dataMutations = [
       // observableOf(this.data),
       this.paginator.page,
-      this.sort.sortChange
+      this.sort.sortChange,
+      this.dataMustBeUpdated
     ];
 
     return merge(...dataMutations).pipe(
@@ -54,6 +57,7 @@ export class TaskListDataSource extends DataSource<Task> {
         // Flip flag to show that loading has finished.
         this.isLoadingResults_.next(false);
         this.paginator.length = data.totalTasks;
+        this.data = data.tasks;
         return data.tasks;
       }),
       catchError(() => {

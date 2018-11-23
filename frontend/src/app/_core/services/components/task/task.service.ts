@@ -31,4 +31,8 @@ export class TaskService {
   add(task: Task) {
     return this.http.post<{ success: boolean, message: string }>(`${this.apiUrlService.API_URL}/task`, task);
   }
+
+  delete(id: string) {
+    return this.http.delete<{ success: boolean, message: string }>(`${this.apiUrlService.API_URL}/task/${encodeURIComponent(id)}`);
+  }
 }

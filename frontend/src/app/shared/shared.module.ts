@@ -20,12 +20,14 @@ import {
   MatExpansionModule,
   MatSnackBarModule,
   MatProgressSpinnerModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDialogModule
 } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ComponentPageHeaderComponent } from './components/component-page-header/component-page-header.component';
 import { RouterModule } from '@angular/router';
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -49,9 +51,10 @@ import { RouterModule } from '@angular/router';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatDialogModule,
     RouterModule
   ],
-  declarations: [ComponentPageHeaderComponent],
+  declarations: [ComponentPageHeaderComponent, ConfirmDialogComponent],
   exports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -74,8 +77,10 @@ import { RouterModule } from '@angular/router';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatDialogModule,
     ComponentPageHeaderComponent
-  ]
+  ],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class SharedModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {

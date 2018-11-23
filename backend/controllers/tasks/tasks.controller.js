@@ -7,10 +7,16 @@ const task = require('../../models/Task');
 router.get('/', (req, res) => {
     task.getAllTasks(req.query, (err, tasks, totalTasks) => {
         if (err) {
-            res.status(501).json({ success: false, message: `Failed to load all tasks. Error: ${err}` });
-        }
-        else {
-            res.status(200).write(JSON.stringify({ success: true, tasks: tasks, totalTasks: totalTasks }, null, 2));
+            res.status(501).json({
+                success: false,
+                message: `Failed to load all tasks. Error: ${err}`
+            });
+        } else {
+            res.status(200).write(JSON.stringify({
+                success: true,
+                tasks: tasks,
+                totalTasks: totalTasks
+            }, null, 2));
             res.end();
 
         }
@@ -23,10 +29,15 @@ router.get('/:id', (req, res) => {
     let id = req.params.id;
     task.getTaskById(id, (err, tasks) => {
         if (err) {
-            res.status(501).json({ success: false, message: `Failed to load single task. Error: ${err}` });
-        }
-        else {
-            res.status(200).write(JSON.stringify({ success: true, tasks: tasks }, null, 2));
+            res.status(501).json({
+                success: false,
+                message: `Failed to load single task. Error: ${err}`
+            });
+        } else {
+            res.status(200).write(JSON.stringify({
+                success: true,
+                tasks: tasks
+            }, null, 2));
             res.end();
 
         }
@@ -43,11 +54,16 @@ router.post('/', (req, res, next) => {
     });
     task.addTask(newTask, (err, list) => {
         if (err) {
-            res.status(501).json({ success: false, message: `Failed to create a new task. Error: ${err}` });
+            res.status(501).json({
+                success: false,
+                message: `Failed to create a new task. Error: ${err}`
+            });
 
-        }
-        else
-            res.status(200).json({ success: true, message: "Added successfully." });
+        } else
+            res.status(200).json({
+                success: true,
+                message: "Added successfully."
+            });
 
     });
 });
@@ -57,15 +73,22 @@ router.delete('/:id', (req, res, next) => {
     //access the parameter which is the id of the item to be deleted
     let id = req.params.id;
     //Call the model method deleteListById
-    task.deleteListById(id, (err, list) => {
+    task.deleteTaskById(id, (err, list) => {
         if (err) {
-            res.status(501).json({ success: false, message: `Failed to delete the list. Error: ${err}` });
-        }
-        else if (list) {
-            res.status(200).json({ success: true, message: "Deleted successfully" });
-        }
-        else
-            res.status(501).json({ success: false });
+            res.status(501).json({
+                success: false,
+                message: `Failed to delete the list. Error: ${err}`
+            });
+        } else if (list) {
+            res.status(200).json({
+                success: true,
+                message: "Deleted successfully"
+            });
+        } else
+            res.status(501).json({
+                success: false,
+                message: `Failed to delete the list. Unknown Error.`
+            });
     });
 });
 

@@ -7,7 +7,7 @@
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "kps",
+      "prefix": "mma",
       "schematics": {
         "@schematics/angular:component": {
           "styleext": "scss"
