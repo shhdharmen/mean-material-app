@@ -1,9 +1,9 @@
-import { TaskCategory, TaskModule } from './enums';
+import { ETaskCategory, ETaskModule } from './enums';
 
 export interface Task {
     _id: string;
     title: string;
     description: string;
-    category: TaskCategory;
-    module: TaskModule;
+    category: ETaskCategory;
+    module: ETaskModule;
 }

@@ -33,7 +33,10 @@ export class ComponentPageHeaderComponent implements OnInit, OnDestroy {
     segments.splice(0, 2);
     segments.forEach((segment, i) => {
       this.segments.push(
-        { label: segment, path: this.segments[i - 1] ? this.segments[i - 1].path + '/' + segment : segment }
+        {
+          label: segment.indexOf('?') > -1 ? segment.substring(0, segment.indexOf('?')) : segment,
+          path: this.segments[i - 1] ? this.segments[i - 1].path + '/' + segment : segment
+        }
       );
     });
   }

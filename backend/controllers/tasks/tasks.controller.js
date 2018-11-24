@@ -77,19 +77,43 @@ router.delete('/:id', (req, res, next) => {
         if (err) {
             res.status(501).json({
                 success: false,
-                message: `Failed to delete the list. Error: ${err}`
+                message: `Failed to delete the task. Error: ${err}`
             });
         } else if (list) {
             res.status(200).json({
                 success: true,
                 message: "Deleted successfully"
             });
-        } else
+        } else {
             res.status(501).json({
                 success: false,
-                message: `Failed to delete the list. Unknown Error.`
+                message: `Failed to delete the task. Unknown Error.`
             });
+        }
     });
+});
+
+//PUT HTTP method to update task. Here, we pass in id and updated task in body.
+router.put('/:id', (req, res, next) => {
+    let id = req.params.id;
+    task.updateById(id, req.body.task, (err, updatedTask) => {
+        if (err) {
+            res.status(501).json({
+                success: false,
+                message: `Failed to update the task. Error: ${err}`
+            });
+        } else if (updatedTask) {
+            res.status(200).json({
+                success: true,
+                message: "Updated successfully"
+            });
+        } else {
+            res.status(501).json({
+                success: false,
+                message: `Failed to update the task. Unknown Error.`
+            });
+        }
+    })
 });
 
 module.exports = router;

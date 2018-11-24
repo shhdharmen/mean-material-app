@@ -28,8 +28,17 @@ export class TaskService {
       (`${this.apiUrlService.API_URL}/task?sort=${sort}&order=${order}&page=${page + 1}&limitTo=${limitTo}`);
   }
 
+  get(id: string) {
+    return this.http.get<{ success: boolean, tasks: Task[] }>(`${this.apiUrlService.API_URL}/task/${id}`);
+  }
+
   add(task: Task) {
     return this.http.post<{ success: boolean, message: string }>(`${this.apiUrlService.API_URL}/task`, task);
+  }
+
+  update(id: string, task: Task) {
+    return this.http.put<{ success: boolean, message: string }>(`${this.apiUrlService.API_URL}/task/${encodeURIComponent(id)}`,
+      { task: task });
   }
 
   delete(id: string) {

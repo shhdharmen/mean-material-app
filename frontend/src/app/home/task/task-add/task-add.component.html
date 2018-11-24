@@ -4,7 +4,7 @@
       <form [formGroup]="taskForm" novalidate (ngSubmit)="onSubmit()">
         <mat-card class="shipping-card" [ngClass]="routerAnimationClass">
           <mat-card-header>
-            <mat-card-title>New Task</mat-card-title>
+            <mat-card-title>{{this.editing ? 'Edit' : 'New'}} Task</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="row">
@@ -50,7 +50,8 @@
             </div>
           </mat-card-content>
           <mat-card-actions class="text-center">
-            <button mat-raised-button color="primary" type="submit">Submit</button>
+            <button mat-raised-button color="primary" type="submit">{{this.editing ? 'Update' : 'Submit'}}</button>
+            <button mat-raised-button color="accent" type="reset" *ngIf="this.editing" [routerLink]="['../list']">Cancel</button>
           </mat-card-actions>
         </mat-card>
       </form>

@@ -1,9 +1,9 @@
-export enum TaskCategory {
+export enum ETaskCategory {
     'high' = 'High',
     'medium' = 'Medium',
     'low' = 'Low'
 }
-export enum TaskModule {
+export enum ETaskModule {
     'client' = 'Client',
     'clientAdmin' = 'Client Admin',
     'support' = 'Support',

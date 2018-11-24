@@ -22,7 +22,13 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <mat-card [ngClass]="routerAnimationClass" class="mb-3">
+  <div class="d-flex justify-content-center flex-column align-items-center my-5 py-5" [ngClass]="routerAnimationClass"
+    *ngIf="!dataSource.data.length">
+    <h2 class="font-weight-light">It's empty here. Why don't you create your first task?</h2>
+    <img class="img-fluid" src="assets/images/svg/empty-box-open.svg" alt="empty-box-open icon made by Freepik from www.flaticon.com"
+      height="300">
+  </div>
+  <mat-card [ngClass]="{routerAnimationClass : true, 'd-none': !dataSource.data.length}" class="mb-3">
     <div class="full-table-container">
       <div class="loading-shade" *ngIf="isLoadingResults">
         <mat-spinner></mat-spinner>
@@ -79,7 +85,7 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let row" class="action-column">
-            <button mat-icon-button color="accent">
+            <button mat-icon-button color="accent" [routerLink]="['../edit']" [queryParams]="{id: row._id}">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="accent" (click)="delete(row)">
