@@ -11,9 +11,9 @@
   "author": "Dharmen Shah",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "express-jwt": "^5.3.1",
-    "faker": "^4.1.0",
-    "json-server": "^0.14.0",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.7",
     "mongoose-paginate": "^5.0.3"
