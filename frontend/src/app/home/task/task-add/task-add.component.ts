@@ -109,7 +109,6 @@ export class TaskAddComponent implements OnInit, OnDestroy {
             this.notificationService.error(res.message, this.isHandset);
           }
         }, err => {
-          console.log(err);
           this.notificationService.error(err, this.isHandset);
         });
       } else {

@@ -29,6 +29,7 @@ async function authenticate({ username, password }) {
         }
     } catch (err) {
         console.log(err);
+        return null;
     }
 }
 
