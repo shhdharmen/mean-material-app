@@ -49,9 +49,11 @@ export class TaskAddComponent implements OnInit, OnDestroy {
     // we have to be sure, that form is ready
     this.initForm().subscribe(_ => {
       this.activatedRoute.queryParams.subscribe(params => {
-        this.taskId = params['id'];
-        this.editing = true;
-        this.fillForm();
+        if (!!params['id']) {
+          this.taskId = params['id'];
+          this.editing = true;
+          this.fillForm();
+        }
       });
     });
     this.isHandset$.subscribe(isHandset => {
