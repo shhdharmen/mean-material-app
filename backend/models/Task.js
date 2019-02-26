@@ -34,7 +34,6 @@ module.exports.getAllTasks = (query, callback) => {
     const page = query.page;
     const limitTo = query.limitTo;
     try {
-        console.log("backend/models/Task.js | getAllTasks");
         TaskList.paginate({}, {
             sort: {
                 [sort]: order
